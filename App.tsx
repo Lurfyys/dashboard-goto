@@ -740,22 +740,7 @@ const App: React.FC = () => {
               Porque mais do que oferecer produtos e serviços, entregamos <strong>soluções completas</strong>, construídas a partir da integração de conhecimentos, experiência e visão estratégica. Trabalhamos lado a lado com nossos clientes para superar desafios e alcançar objetivos.
             </p>
             <div className="inline-flex flex-col sm:flex-row gap-6">
-              <a 
-                href="#contato"
-                onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
-                className="bg-slate-950 text-white px-12 py-5 rounded-lg font-bold text-lg hover:bg-slate-900 transition-all shadow-xl"
-              >
-                Começar Agora
-              </a>
-
-              {/* botão do app mantém paleta do app */}
-              <a 
-                href="#saude-mental"
-                onClick={(e) => { e.preventDefault(); scrollToId('saude-mental'); }}
-                className="bg-brain-gradient text-white px-12 py-5 rounded-lg font-bold text-lg hover:scale-105 transition-all text-center"
-              >
-                Ver Demo do App
-              </a>
+              
             </div>
           </div>
         </section>
