@@ -609,16 +609,14 @@ const Footer: React.FC = () => {
             <ul className="space-y-6">
               <li className="flex gap-4">
                 <MapPin className="text-white/85 shrink-0" />
-                <span className="text-white/65">Atuação multissetorial em todo o território nacional.</span>
+                <span className="text-white/65">Brasilia-DF</span>
               </li>
               <li className="flex gap-4">
                 <Phone className="text-white/85 shrink-0" />
-                <span className="text-white/65">+55 (XX) XXXXX-XXXX</span>
+                <span className="text-white/65">+55 (61) 98196-0225</span>
               </li>
-              <li className="flex gap-4">
-                <Mail className="text-white/85 shrink-0" />
-                <span className="text-white/65">contato@grupogoto.com.br</span>
-              </li>
+              
+              
             </ul>
           </div>
         </div>
