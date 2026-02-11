@@ -647,12 +647,16 @@ const Footer: React.FC = () => {
             </p>
 
             <a 
-              href="mailto:contato@grupogoto.com.br"
-              className="bg-white text-slate-950 hover:bg-white/90 transition-all px-10 py-4 rounded-full font-bold inline-flex items-center gap-3 group"
-            >
-              Fale conosco agora
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </a>
+  href="https://wa.me/556181960225?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20oferecidos."
+
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-white text-slate-950 hover:bg-white/90 transition-all px-10 py-4 rounded-full font-bold inline-flex items-center gap-3 group"
+>
+  Fale conosco agora
+  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+</a>
+
           </div>
 
           <div>
