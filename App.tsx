@@ -228,14 +228,6 @@ const Hero: React.FC = () => {
               <ChevronRight className="w-5 h-5" />
             </a>
 
-            {/* Mantém paleta do app (diferenciar) */}
-            <a 
-              href="#saude-mental"
-              onClick={(e) => { e.preventDefault(); scrollToId('saude-mental'); }}
-              className="bg-brain-gradient px-8 py-4 rounded font-bold text-center flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-transform"
-            >
-              Conheça nosso App de Saúde
-            </a>
           </div>
         </div>
       </div>
