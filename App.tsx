@@ -378,7 +378,7 @@ const MentalHealthSection: React.FC = () => {
             onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
             className="bg-brain-gradient text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
           >
-            Solicitar Demo do Produto
+             Teste nosso sistema
             <ArrowRight size={20} />
           </a>
         </div>
