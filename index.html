@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- ✅ FAVICON (logo.png dentro da pasta /public) -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grupo Goto | Soluções Integradas</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              goto: {
+                DEFAULT: '#6a9a9a',
+                dark: '#4d7373',
+                light: '#a1c4c4',
+                soft: '#f0f7f7'
+              },
+              health: {
+                blue: '#3b82f6',
+                green: '#84cc16',
+                teal: '#14b8a6'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              heading: ['Montserrat', 'sans-serif']
+            },
+            backgroundImage: {
+              'brain-gradient': 'linear-gradient(135deg, #3b82f6 0%, #84cc16 100%)',
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      h1, h2, h3, h4 {
+        font-family: 'Montserrat', sans-serif;
+      }
+    </style>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/index.css">
+  </head>
+
+  <body class="bg-white text-slate-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
