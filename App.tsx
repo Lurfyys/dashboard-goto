@@ -15,7 +15,6 @@ import {
   Menu,
   X,
   Phone,
-  Mail,
   MapPin,
   Compass,
   Zap,
@@ -27,10 +26,46 @@ import {
   BrainCircuit
 } from 'lucide-react';
 
+/**
+ * Faz scroll suave até um elemento por id
+ * e remove o hash da URL (para não ficar /#contato).
+ */
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Remove hash da URL sem recarregar
+  if (window.location.hash) {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+}
+
+/**
+ * Quando alguém abrir direto com /#contato (ou outro),
+ * rola até a seção e depois remove o hash.
+ */
+function useHandleInitialHash() {
+  useEffect(() => {
+    const hash = window.location.hash?.replace('#', '');
+    if (!hash) return;
+
+    // espera um tick para garantir que o DOM montou
+    const t = window.setTimeout(() => {
+      scrollToId(hash);
+    }, 50);
+
+    return () => window.clearTimeout(t);
+  }, []);
+}
+
 // --- Header Component ---
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useHandleInitialHash();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -39,13 +74,18 @@ const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Quem Somos', href: '#sobre' },
-    { name: 'Saúde Mental', href: '#saude-mental' },
-    { name: 'Soluções', href: '#solucoes' },
-    { name: 'Diferenciais', href: '#diferenciais' },
-    { name: 'Metodologia', href: '#metodologia' },
-    { name: 'Contato', href: '#contato' },
+    { name: 'Quem Somos', id: 'sobre' },
+    { name: 'Saúde Mental', id: 'saude-mental' },
+    { name: 'Soluções', id: 'solucoes' },
+    { name: 'Diferenciais', id: 'diferenciais' },
+    { name: 'Metodologia', id: 'metodologia' },
+    { name: 'Contato', id: 'contato' },
   ];
+
+  const onNavClick = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    scrollToId(id);
+  };
 
   return (
     <header 
@@ -55,7 +95,17 @@ const Header: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo (corporativa) */}
-        <a href="#" className="flex items-center gap-3 group">
+        <a
+          href="/"
+          className="flex items-center gap-3 group"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (window.location.hash) {
+              window.history.replaceState(null, '', window.location.pathname + window.location.search);
+            }
+          }}
+        >
           <img
             src={logo}
             alt="Grupo Goto"
@@ -74,7 +124,8 @@ const Header: React.FC = () => {
           {navLinks.map((link) => (
             <a 
               key={link.name} 
-              href={link.href}
+              href={`#${link.id}`}
+              onClick={onNavClick(link.id)}
               className={`text-sm font-medium transition-colors ${
                 isScrolled
                   ? 'text-slate-700 hover:text-slate-900'
@@ -107,16 +158,24 @@ const Header: React.FC = () => {
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
-                href={link.href}
+                href={`#${link.id}`}
                 className="text-slate-800 text-lg font-medium hover:text-slate-950"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMenuOpen(false);
+                  scrollToId(link.id);
+                }}
               >
                 {link.name}
               </a>
             ))}
             <a 
               href="#contato"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMenuOpen(false);
+                scrollToId('contato');
+              }}
               className="bg-slate-900 text-white px-6 py-3 rounded font-bold text-center block hover:bg-slate-800 transition-colors"
             >
               Fale Conosco
@@ -162,6 +221,7 @@ const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <a 
               href="#contato"
+              onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
               className="bg-white text-slate-950 hover:bg-white/90 transition-all px-8 py-4 rounded font-bold text-center flex items-center justify-center gap-2"
             >
               Fale Conosco
@@ -171,6 +231,7 @@ const Hero: React.FC = () => {
             {/* Mantém paleta do app (diferenciar) */}
             <a 
               href="#saude-mental"
+              onClick={(e) => { e.preventDefault(); scrollToId('saude-mental'); }}
               className="bg-brain-gradient px-8 py-4 rounded font-bold text-center flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-transform"
             >
               Conheça nosso App de Saúde
@@ -179,7 +240,11 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      <a href="#sobre" className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block group cursor-pointer">
+      <a
+        href="#sobre"
+        onClick={(e) => { e.preventDefault(); scrollToId('sobre'); }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block group cursor-pointer"
+      >
         <div className="w-8 h-12 border-2 border-white/25 group-hover:border-white transition-colors rounded-full flex justify-center p-2">
           <div className="w-1 h-3 bg-white rounded-full"></div>
         </div>
@@ -308,7 +373,11 @@ const MentalHealthSection: React.FC = () => {
           <p className="text-slate-500 mb-8 max-w-3xl mx-auto italic">
             "Nosso objetivo central é transformar o monitoramento de saúde mental em uma jornada de acolhimento e eficiência organizacional."
           </p>
-          <a href="#contato" className="bg-brain-gradient text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3">
+          <a
+            href="#contato"
+            onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
+            className="bg-brain-gradient text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
+          >
             Solicitar Demo do Produto
             <ArrowRight size={20} />
           </a>
@@ -597,10 +666,10 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-bold mb-8 font-heading">Atalhos</h4>
             <ul className="space-y-4 text-white/65">
-              <li><a href="#sobre" className="hover:text-white transition-colors">Quem Somos</a></li>
-              <li><a href="#saude-mental" className="hover:text-white transition-colors">Saúde Mental (App)</a></li>
-              <li><a href="#solucoes" className="hover:text-white transition-colors">Nossas Soluções</a></li>
-              <li><a href="#diferenciais" className="hover:text-white transition-colors">Diferenciais</a></li>
+              <li><a href="#sobre" onClick={(e)=>{e.preventDefault();scrollToId('sobre')}} className="hover:text-white transition-colors">Quem Somos</a></li>
+              <li><a href="#saude-mental" onClick={(e)=>{e.preventDefault();scrollToId('saude-mental')}} className="hover:text-white transition-colors">Saúde Mental (App)</a></li>
+              <li><a href="#solucoes" onClick={(e)=>{e.preventDefault();scrollToId('solucoes')}} className="hover:text-white transition-colors">Nossas Soluções</a></li>
+              <li><a href="#diferenciais" onClick={(e)=>{e.preventDefault();scrollToId('diferenciais')}} className="hover:text-white transition-colors">Diferenciais</a></li>
             </ul>
           </div>
 
@@ -615,8 +684,6 @@ const Footer: React.FC = () => {
                 <Phone className="text-white/85 shrink-0" />
                 <span className="text-white/65">+55 (61) 98196-0225</span>
               </li>
-              
-              
             </ul>
           </div>
         </div>
@@ -637,6 +704,8 @@ const Footer: React.FC = () => {
 
 // --- Main App Component ---
 const App: React.FC = () => {
+  useHandleInitialHash();
+
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header />
@@ -672,7 +741,8 @@ const App: React.FC = () => {
             </p>
             <div className="inline-flex flex-col sm:flex-row gap-6">
               <a 
-                href="#contato" 
+                href="#contato"
+                onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
                 className="bg-slate-950 text-white px-12 py-5 rounded-lg font-bold text-lg hover:bg-slate-900 transition-all shadow-xl"
               >
                 Começar Agora
@@ -681,6 +751,7 @@ const App: React.FC = () => {
               {/* botão do app mantém paleta do app */}
               <a 
                 href="#saude-mental"
+                onClick={(e) => { e.preventDefault(); scrollToId('saude-mental'); }}
                 className="bg-brain-gradient text-white px-12 py-5 rounded-lg font-bold text-lg hover:scale-105 transition-all text-center"
               >
                 Ver Demo do App
