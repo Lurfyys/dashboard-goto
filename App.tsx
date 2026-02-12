@@ -637,7 +637,7 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-slate-900/5 -z-10 rounded"></div>
             <img
-              src="./screen5.png"
+              src= {screen5}
               alt="Team Meeting"
               className="rounded-lg shadow-2xl relative z-10"
             />
