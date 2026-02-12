@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import brainIcon from "./gnr1.jpeg"; // ícone do app (fica só na seção saúde mental)
-import logo from "./logo.png";       // logo corporativa (site todo)
+import logo from "./logo.png"; // logo corporativa (site todo)
 
-import { 
-  ChevronRight, 
-  Target, 
-  Lightbulb, 
-  ShieldCheck, 
-  Users, 
-  TrendingUp, 
-  Briefcase, 
-  CheckCircle2, 
+// ✅ ADICIONE SEUS PRINTS AQUI (coloque os arquivos em: src/assets/screens/)
+import screen1 from "./screen1.png";
+import screen2 from "./screen2.png";
+import screen3 from "./screen3.png";
+import screen4 from "./screen4.png";
+import screen5 from "./screen5.png"
+
+import {
+  ChevronRight,
+  Target,
+  Lightbulb,
+  ShieldCheck,
+  Users,
+  TrendingUp,
+  Briefcase,
+  CheckCircle2,
   ArrowRight,
   Menu,
   X,
@@ -23,8 +30,12 @@ import {
   BarChart3,
   Smartphone,
   ShieldAlert,
-  BrainCircuit
-} from 'lucide-react';
+  BrainCircuit,
+  XCircle,
+  ClipboardList,
+  Activity,
+  Lock,
+} from "lucide-react";
 
 /**
  * Faz scroll suave até um elemento por id
@@ -34,11 +45,15 @@ function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
 
   // Remove hash da URL sem recarregar
   if (window.location.hash) {
-    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search
+    );
   }
 }
 
@@ -48,7 +63,7 @@ function scrollToId(id: string) {
  */
 function useHandleInitialHash() {
   useEffect(() => {
-    const hash = window.location.hash?.replace('#', '');
+    const hash = window.location.hash?.replace("#", "");
     if (!hash) return;
 
     // espera um tick para garantir que o DOM montou
@@ -69,17 +84,17 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Quem Somos', id: 'sobre' },
-    { name: 'Saúde Mental', id: 'saude-mental' },
-    { name: 'Soluções', id: 'solucoes' },
-    { name: 'Diferenciais', id: 'diferenciais' },
-    { name: 'Metodologia', id: 'metodologia' },
-    { name: 'Contato', id: 'contato' },
+    { name: "Quem Somos", id: "sobre" },
+    { name: "Saúde Mental", id: "saude-mental" },
+    { name: "Soluções", id: "solucoes" },
+    { name: "Diferenciais", id: "diferenciais" },
+    { name: "Metodologia", id: "metodologia" },
+    { name: "Contato", id: "contato" },
   ];
 
   const onNavClick = (id: string) => (e: React.MouseEvent) => {
@@ -88,9 +103,11 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/95 backdrop-blur shadow-md py-3' : 'bg-transparent py-6'
+        isScrolled
+          ? "bg-white/95 backdrop-blur shadow-md py-3"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -100,9 +117,13 @@ const Header: React.FC = () => {
           className="flex items-center gap-3 group"
           onClick={(e) => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: "smooth" });
             if (window.location.hash) {
-              window.history.replaceState(null, '', window.location.pathname + window.location.search);
+              window.history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search
+              );
             }
           }}
         >
@@ -112,9 +133,11 @@ const Header: React.FC = () => {
             className="h-9 w-auto transition-transform group-hover:scale-105"
             draggable={false}
           />
-          <span className={`text-2xl font-bold font-heading tracking-tight ${
-            isScrolled ? 'text-slate-900' : 'text-white'
-          }`}>
+          <span
+            className={`text-2xl font-bold font-heading tracking-tight ${
+              isScrolled ? "text-slate-900" : "text-white"
+            }`}
+          >
             GRUPO GOTO
           </span>
         </a>
@@ -122,14 +145,14 @@ const Header: React.FC = () => {
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
+            <a
+              key={link.name}
               href={`#${link.id}`}
               onClick={onNavClick(link.id)}
               className={`text-sm font-medium transition-colors ${
                 isScrolled
-                  ? 'text-slate-700 hover:text-slate-900'
-                  : 'text-white/90 hover:text-white'
+                  ? "text-slate-700 hover:text-slate-900"
+                  : "text-white/90 hover:text-white"
               }`}
             >
               {link.name}
@@ -138,15 +161,15 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Abrir menu"
         >
           {isMenuOpen ? (
-            <X className={isScrolled ? 'text-slate-900' : 'text-white'} />
+            <X className={isScrolled ? "text-slate-900" : "text-white"} />
           ) : (
-            <Menu className={isScrolled ? 'text-slate-900' : 'text-white'} />
+            <Menu className={isScrolled ? "text-slate-900" : "text-white"} />
           )}
         </button>
       </div>
@@ -156,8 +179,8 @@ const Header: React.FC = () => {
         <div className="md:hidden bg-white border-b absolute top-full left-0 right-0 p-4 shadow-xl animate-in slide-in-from-top">
           <nav className="flex flex-col space-y-4">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={`#${link.id}`}
                 className="text-slate-800 text-lg font-medium hover:text-slate-950"
                 onClick={(e) => {
@@ -169,12 +192,12 @@ const Header: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <a 
+            <a
               href="#contato"
               onClick={(e) => {
                 e.preventDefault();
                 setIsMenuOpen(false);
-                scrollToId('contato');
+                scrollToId("contato");
               }}
               className="bg-slate-900 text-white px-6 py-3 rounded font-bold text-center block hover:bg-slate-800 transition-colors"
             >
@@ -192,9 +215,9 @@ const Hero: React.FC = () => {
   return (
     <section className="relative h-screen flex items-center overflow-hidden bg-slate-950">
       <div className="absolute inset-0">
-        <img 
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000" 
-          alt="Modern Office" 
+        <img
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000"
+          alt="Modern Office"
           className="w-full h-full object-cover opacity-25"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent"></div>
@@ -215,26 +238,32 @@ const Hero: React.FC = () => {
           </h2>
 
           <p className="text-lg text-white/70 mb-10 leading-relaxed">
-            Unimos expertises em múltiplos setores para entregar resultados sustentáveis. Do bem-estar corporativo à gestão estratégica.
+            Unimos expertises em múltiplos setores para entregar resultados
+            sustentáveis. Do bem-estar corporativo à gestão estratégica.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <a 
+            <a
               href="#contato"
-              onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToId("contato");
+              }}
               className="bg-white text-slate-950 hover:bg-white/90 transition-all px-8 py-4 rounded font-bold text-center flex items-center justify-center gap-2"
             >
               Fale Conosco
               <ChevronRight className="w-5 h-5" />
             </a>
-
           </div>
         </div>
       </div>
 
       <a
         href="#sobre"
-        onClick={(e) => { e.preventDefault(); scrollToId('sobre'); }}
+        onClick={(e) => {
+          e.preventDefault();
+          scrollToId("sobre");
+        }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block group cursor-pointer"
       >
         <div className="w-8 h-12 border-2 border-white/25 group-hover:border-white transition-colors rounded-full flex justify-center p-2">
@@ -245,11 +274,77 @@ const Hero: React.FC = () => {
   );
 };
 
-// --- Mental Health Product Section (MANTÉM paleta do app) ---
+/* ---------------------------
+   ✅ MENTAL HEALTH: MAIS COMPLETA
+---------------------------- */
+type ScreenItem = { src: string; title: string; desc: string };
+
 const MentalHealthSection: React.FC = () => {
+  const [open, setOpen] = useState<null | ScreenItem>(null);
+
+  /**
+   * ✅ Ajuste os prints "no lugar certo":
+   * Garanta que cada import corresponde ao print correto:
+   * - screen1: Login / Acesso
+   * - screen2: Dashboard (SESMT/RH)
+   * - screen3: Workflows de Intervenção
+   * - screen4: Bem-vindo / Onboarding
+   */
+  const screens: ScreenItem[] = [
+    {
+      src: screen1,
+      title: "Login / Acesso",
+      desc: "Entrada segura para colaborador e/ou área administrativa.",
+    },
+    {
+      src: screen3,
+      title: "Dashboard (SESMT/RH)",
+      desc: "Visão agregada com gráficos e indicadores por time/setor.",
+    },
+    {
+      src: screen2,
+      title: "Workflows de Intervenção",
+      desc: "Ações recomendadas e acompanhamento de iniciativas.",
+    },
+    {
+      src: screen4,
+      title: "Bem-vindo / Onboarding",
+      desc: "Primeiro acesso com orientação e jornada guiada.",
+    },
+  ];
+
+  const howItWorks = [
+    {
+      icon: <ClipboardList className="w-5 h-5" />,
+      title: "Coleta diária simples",
+      desc: "Humor, bem-estar e questionários rápidos no app do colaborador.",
+    },
+    {
+      icon: <Activity className="w-5 h-5" />,
+      title: "Análise e risco",
+      desc: "Sinais de estresse/burnout e tendências por equipe (sem expor indivíduos).",
+    },
+    {
+      icon: <ShieldAlert className="w-5 h-5" />,
+      title: "Alertas e trilhas",
+      desc: "Gatilhos, recomendações e fluxos de intervenção por perfil de risco.",
+    },
+    {
+      icon: <BarChart3 className="w-5 h-5" />,
+      title: "Relatórios para SESMT/RH",
+      desc: "Indicadores, insights e suporte a NR-01/ESG com dados agregados.",
+    },
+  ];
+
   return (
-    <section id="saude-mental" className="py-24 bg-white scroll-mt-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="saude-mental"
+      className="py-24 bg-white scroll-mt-24 overflow-hidden"
+    >
+      {/* ✅ AUMENTEI A LARGURA MÁXIMA AQUI (de max-w-7xl -> max-w-screen-2xl)
+          Isso aumenta “um pouquinho” as miniaturas no grid sem mexer em colunas. */}
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           {/* Ícone do app (não troca por logo corporativa) */}
           <div className="inline-flex items-center justify-center p-3 mb-6 bg-brain-gradient rounded-2xl shadow-xl animate-bounce">
@@ -267,11 +362,14 @@ const MentalHealthSection: React.FC = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-4 font-heading bg-brain-gradient bg-clip-text text-transparent">
             Nossa Solução Corporativa
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Monitoramento preventivo e gestão de riscos psicossociais para empresas que valorizam o ESG e o capital humano.
+          <p className="text-slate-600 max-w-3xl mx-auto text-lg">
+            Plataforma para monitoramento preventivo e gestão de riscos
+            psicossociais: app do colaborador + dashboard do SESMT/RH, com
+            privacidade, visão agregada e apoio a decisões.
           </p>
         </div>
 
+        {/* Two cards (App / Dashboard) */}
         <div className="grid lg:grid-cols-2 gap-12 items-stretch">
           {/* App side */}
           <div className="bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-100 flex flex-col justify-between">
@@ -279,15 +377,25 @@ const MentalHealthSection: React.FC = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold mb-6">
                 <Smartphone size={14} /> Aplicativo do Colaborador
               </div>
-              <h3 className="text-2xl font-bold mb-6 font-heading">Cuidado Individual e Protegido</h3>
-              <ul className="space-y-4 mb-12">
+              <h3 className="text-2xl font-bold mb-4 font-heading">
+                Cuidado Individual e Protegido
+              </h3>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                O colaborador registra bem-estar em poucos segundos. O sistema
+                organiza sinais e tendências para prevenção — sem transformar
+                isso em “mais uma obrigação”, e com abordagem acolhedora.
+              </p>
+
+              <ul className="space-y-4 mb-10">
                 <li className="flex gap-4">
                   <div className="bg-white p-2 rounded-lg shadow-sm shrink-0">
                     <Heart className="text-health-blue" />
                   </div>
                   <div>
                     <h4 className="font-bold">Registro de Humor e Bem-estar</h4>
-                    <p className="text-slate-500 text-sm">Acompanhamento diário para autoconhecimento e prevenção.</p>
+                    <p className="text-slate-500 text-sm">
+                      Acompanhamento diário para autoconhecimento e prevenção.
+                    </p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -296,7 +404,9 @@ const MentalHealthSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-bold">Questionários Psicológicos</h4>
-                    <p className="text-slate-500 text-sm">Avaliação de estresse, carga mental e clima organizacional.</p>
+                    <p className="text-slate-500 text-sm">
+                      Avaliação de estresse, carga mental e clima organizacional.
+                    </p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -305,14 +415,25 @@ const MentalHealthSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-bold">Alertas de Risco</h4>
-                    <p className="text-slate-500 text-sm">Identificação precoce de sinais de burnout e adoecimento.</p>
+                    <p className="text-slate-500 text-sm">
+                      Identificação precoce de sinais de burnout e adoecimento.
+                    </p>
                   </div>
                 </li>
               </ul>
             </div>
+
             <div className="bg-white p-6 rounded-2xl shadow-inner border border-slate-100 text-center">
-              <p className="text-slate-400 text-xs uppercase tracking-widest mb-2 font-bold italic">Privacidade Garantida</p>
-              <p className="text-slate-600 text-sm font-medium">Dados individuais protegidos sob sigilo ético.</p>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Lock className="w-4 h-4 text-slate-400" />
+                <p className="text-slate-400 text-xs uppercase tracking-widest font-bold italic">
+                  Privacidade Garantida
+                </p>
+              </div>
+              <p className="text-slate-600 text-sm font-medium">
+                Dados individuais protegidos sob sigilo ético e análise
+                prioritariamente agregada.
+              </p>
             </div>
           </div>
 
@@ -320,17 +441,29 @@ const MentalHealthSection: React.FC = () => {
           <div className="bg-slate-900 rounded-3xl p-8 md:p-12 text-white flex flex-col justify-between">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-health-green/20 text-health-green rounded-full text-xs font-bold mb-6 border border-health-green/30">
-                <BarChart3 size={14} /> Dashboard para Gestores / RH
+                <BarChart3 size={14} /> Dashboard para Gestores / SESMT/RH
               </div>
-              <h3 className="text-2xl font-bold mb-6 font-heading">Inteligência Estratégica para o RH</h3>
-              <ul className="space-y-4 mb-12">
+              <h3 className="text-2xl font-bold mb-4 font-heading">
+                Inteligência Estratégica para o SESMT/RH
+              </h3>
+              <p className="text-slate-300 mb-8 leading-relaxed">
+                Consolide indicadores por setor, turnos e equipes. Identifique
+                pontos críticos, priorize ações e acompanhe resultados com
+                relatórios objetivos.
+              </p>
+
+              <ul className="space-y-4 mb-10">
                 <li className="flex gap-4">
                   <div className="bg-white/10 p-2 rounded-lg shrink-0">
                     <Users className="text-health-green" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">Visão Agregada e Anônima</h4>
-                    <p className="text-slate-400 text-sm">Entenda o panorama da empresa sem expor o colaborador.</p>
+                    <h4 className="font-bold text-white">
+                      Visão Agregada e Anônima
+                    </h4>
+                    <p className="text-slate-400 text-sm">
+                      Panorama da empresa sem expor o colaborador.
+                    </p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -338,8 +471,12 @@ const MentalHealthSection: React.FC = () => {
                     <Target className="text-health-green" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">Relatórios de Riscos Psicossociais</h4>
-                    <p className="text-slate-400 text-sm">Análise por equipe e setor para intervenções assertivas.</p>
+                    <h4 className="font-bold text-white">
+                      Relatórios de Riscos Psicossociais
+                    </h4>
+                    <p className="text-slate-400 text-sm">
+                      Análise por equipe e setor para intervenções assertivas.
+                    </p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -348,33 +485,145 @@ const MentalHealthSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-white">Compliance e ESG</h4>
-                    <p className="text-slate-400 text-sm">Apoio direto às métricas de responsabilidade social e NR-01.</p>
+                    <p className="text-slate-400 text-sm">
+                      Apoio a métricas de responsabilidade social e NR-01.
+                    </p>
                   </div>
                 </li>
               </ul>
             </div>
+
             <div className="bg-health-green/10 p-6 rounded-2xl border border-health-green/20">
               <p className="text-health-green text-sm font-bold flex items-center gap-2">
-                <CheckCircle2 size={16} /> Transformando dados em insights práticos.
+                <CheckCircle2 size={16} /> Transformando dados em insights
+                práticos.
               </p>
             </div>
           </div>
         </div>
 
+        {/* ✅ Como funciona */}
+        <div className="mt-16">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-bold font-heading text-slate-950">
+              Como o sistema funciona na prática
+            </h3>
+            <p className="text-slate-600 mt-3 max-w-3xl mx-auto">
+              Uma jornada simples para o colaborador e poderosa para o SESMT/RH —
+              com foco em prevenção, gestão e acompanhamento.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {howItWorks.map((s, i) => (
+              <div
+                key={i}
+                className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:shadow-lg transition-shadow"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center mb-4 text-slate-900">
+                  {s.icon}
+                </div>
+                <h4 className="font-bold text-slate-950 mb-2">{s.title}</h4>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ✅ Galeria de telas */}
+        <div className="mt-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold font-heading text-slate-950">
+                Telas do aplicativo e dashboard
+              </h3>
+              <p className="text-slate-600 mt-2">
+                Clique em uma tela para ampliar.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {screens.map((it, idx) => (
+              <button
+                key={idx}
+                onClick={() => setOpen(it)}
+                className="text-left group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl transition-shadow"
+              >
+                {/* ✅ AUMENTEI UM POUQUINHO A ALTURA DA MINIATURA
+                    (de aspect-[4/3] -> aspect-[16/11]) */}
+                <div className="aspect-[16/11] bg-slate-100 overflow-hidden">
+                  <img
+                    src={it.src}
+                    alt={it.title}
+                    className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"
+                    draggable={false}
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-4">
+                    <h4 className="font-bold text-slate-950">{it.title}</h4>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-slate-900 transition-colors" />
+                  </div>
+                  <p className="text-slate-600 text-sm mt-2">{it.desc}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
         <div className="mt-16 text-center">
           <p className="text-slate-500 mb-8 max-w-3xl mx-auto italic">
-            "Nosso objetivo central é transformar o monitoramento de saúde mental em uma jornada de acolhimento e eficiência organizacional."
+            "Nosso objetivo central é transformar o monitoramento de saúde mental
+            em uma jornada de acolhimento e eficiência organizacional."
           </p>
           <a
             href="#contato"
-            onClick={(e) => { e.preventDefault(); scrollToId('contato'); }}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId("contato");
+            }}
             className="bg-brain-gradient text-white px-12 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all inline-flex items-center gap-3"
           >
-             Teste nosso sistema
+            Agende uma demonstração
             <ArrowRight size={20} />
           </a>
         </div>
       </div>
+
+      {/* ✅ Modal (ampliar tela) */}
+      {open && (
+        <div className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          {/* ✅ AUMENTEI UM POUCO O TAMANHO DO MODAL (max-w-5xl -> max-w-6xl) */}
+          <div className="max-w-6xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl">
+            <div className="flex items-center justify-between p-5 border-b">
+              <div>
+                <h4 className="font-bold text-slate-950">{open.title}</h4>
+                <p className="text-slate-600 text-sm">{open.desc}</p>
+              </div>
+              <button
+                onClick={() => setOpen(null)}
+                className="p-2 rounded-full hover:bg-slate-100 transition-colors"
+                aria-label="Fechar"
+              >
+                <XCircle className="w-6 h-6 text-slate-700" />
+              </button>
+            </div>
+            <div className="bg-slate-100">
+              {/* ✅ AUMENTEI UM POUQUINHO A ALTURA VISÍVEL (70vh -> 80vh) */}
+              <img
+                src={open.src}
+                alt={open.title}
+                className="w-full h-[80vh] object-contain"
+                draggable={false}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
@@ -387,26 +636,39 @@ const About: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-slate-900/5 -z-10 rounded"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000" 
-              alt="Team Meeting" 
+            <img
+              src="./screen5.png"
+              alt="Team Meeting"
               className="rounded-lg shadow-2xl relative z-10"
             />
             <div className="absolute -bottom-8 -right-8 bg-slate-900 p-8 rounded shadow-lg text-white hidden lg:block z-20">
-              <span className="block text-4xl font-bold mb-1">High Standard</span>
-              <span className="text-sm uppercase tracking-widest opacity-80">Qualidade Garantida</span>
+              <span className="block text-4xl font-bold mb-1">
+                High Standard
+              </span>
+              <span className="text-sm uppercase tracking-widest opacity-80">
+                Qualidade Garantida
+              </span>
             </div>
           </div>
           <div>
-            <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">Quem Somos</span>
+            <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">
+              Quem Somos
+            </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-950 font-heading">
               Sobre o Grupo Goto
             </h2>
             <p className="text-slate-600 mb-6 text-lg leading-relaxed">
-              O <strong className="text-slate-950">Grupo Goto</strong> é um grupo empresarial que atua em múltiplos segmentos, oferecendo uma ampla gama de produtos e serviços desenvolvidos para atender às demandas de um mercado cada vez mais dinâmico e exigente.
+              O <strong className="text-slate-950">Grupo Goto</strong> é um grupo
+              empresarial que atua em múltiplos segmentos, oferecendo uma ampla
+              gama de produtos e serviços desenvolvidos para atender às demandas
+              de um mercado cada vez mais dinâmico e exigente.
             </p>
             <p className="text-slate-600 mb-8 text-lg leading-relaxed">
-              Nossa atuação é pautada pela qualidade, pela eficiência e pela busca constante por soluções inteligentes. Acreditamos que cada cliente é único e, por isso, trabalhamos de forma personalizada, entendendo suas necessidades para entregar resultados consistentes e sustentáveis.
+              Nossa atuação é pautada pela qualidade, pela eficiência e pela
+              busca constante por soluções inteligentes. Acreditamos que cada
+              cliente é único e, por isso, trabalhamos de forma personalizada,
+              entendendo suas necessidades para entregar resultados consistentes
+              e sustentáveis.
             </p>
             <div className="grid grid-cols-2 gap-6">
               {["Eficiência", "Inovação", "Qualidade", "Resultados"].map((t) => (
@@ -429,17 +691,22 @@ const Solutions: React.FC = () => {
     "Produtos e serviços desenvolvidos com alto padrão",
     "Soluções personalizadas de acordo com cada necessidade",
     "Atuação estratégica e operacional integrada",
-    "Suporte especializado em todas as etapas"
+    "Suporte especializado em todas as etapas",
   ];
 
   return (
     <section id="solucoes" className="py-24 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">O que fazemos</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading text-slate-950">Nossas Soluções</h2>
+          <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">
+            O que fazemos
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading text-slate-950">
+            Nossas Soluções
+          </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Oferecemos soluções completas, integrando diferentes áreas de atuação para gerar mais valor aos nossos clientes.
+            Oferecemos soluções completas, integrando diferentes áreas de atuação
+            para gerar mais valor aos nossos clientes.
           </p>
         </div>
 
@@ -448,24 +715,39 @@ const Solutions: React.FC = () => {
             <div className="w-14 h-14 bg-slate-900/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
               <TrendingUp className="text-slate-900 group-hover:text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">Atuação Estratégica</h3>
-            <p className="text-slate-600">Planejamento focado no crescimento sustentável e na otimização de recursos.</p>
+            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">
+              Atuação Estratégica
+            </h3>
+            <p className="text-slate-600">
+              Planejamento focado no crescimento sustentável e na otimização de
+              recursos.
+            </p>
           </div>
 
           <div className="bg-slate-50 p-10 rounded-xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
             <div className="w-14 h-14 bg-slate-900/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
               <ShieldCheck className="text-slate-900 group-hover:text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">Alto Padrão</h3>
-            <p className="text-slate-600">Garantia de qualidade em todos os processos, do desenvolvimento à entrega final.</p>
+            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">
+              Alto Padrão
+            </h3>
+            <p className="text-slate-600">
+              Garantia de qualidade em todos os processos, do desenvolvimento à
+              entrega final.
+            </p>
           </div>
 
           <div className="bg-slate-50 p-10 rounded-xl shadow-sm border border-slate-100 hover:shadow-xl transition-shadow group">
             <div className="w-14 h-14 bg-slate-900/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-slate-900 group-hover:text-white transition-colors">
               <Zap className="text-slate-900 group-hover:text-white" />
             </div>
-            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">Soluções Ágeis</h3>
-            <p className="text-slate-600">Implementação rápida e eficiente adaptada ao dinamismo do mercado atual.</p>
+            <h3 className="text-xl font-bold mb-4 font-heading text-slate-950">
+              Soluções Ágeis
+            </h3>
+            <p className="text-slate-600">
+              Implementação rápida e eficiente adaptada ao dinamismo do mercado
+              atual.
+            </p>
           </div>
         </div>
 
@@ -473,7 +755,9 @@ const Solutions: React.FC = () => {
           <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl -mr-48 -mt-48"></div>
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-3xl font-bold mb-8 font-heading">Por que escolher nossas soluções?</h3>
+              <h3 className="text-3xl font-bold mb-8 font-heading">
+                Por que escolher nossas soluções?
+              </h3>
               <ul className="space-y-6">
                 {features.map((f, i) => (
                   <li key={i} className="flex items-start gap-4">
@@ -487,7 +771,8 @@ const Solutions: React.FC = () => {
             </div>
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl">
               <p className="text-xl italic text-white/80 leading-relaxed mb-6">
-                "Nossa abordagem vai além da entrega: acompanhamos, ajustamos e evoluímos junto com o cliente."
+                "Nossa abordagem vai além da entrega: acompanhamos, ajustamos e
+                evoluímos junto com o cliente."
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-white/10"></div>
@@ -499,7 +784,6 @@ const Solutions: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
@@ -508,11 +792,31 @@ const Solutions: React.FC = () => {
 // --- Differentials Section ---
 const Differentials: React.FC = () => {
   const diffs = [
-    { title: "Integração de expertises", desc: "Diversas áreas atuando de forma conjunta.", icon: <Users /> },
-    { title: "Visão estratégica", desc: "Soluções pensadas para o presente e o futuro.", icon: <Compass /> },
-    { title: "Qualidade e confiabilidade", desc: "Padrões elevados em tudo o que fazemos.", icon: <Award /> },
-    { title: "Personalização", desc: "Soluções adaptadas à realidade de cada cliente.", icon: <Lightbulb /> },
-    { title: "Parceria", desc: "Relacionamento próximo e transparente.", icon: <Briefcase /> }
+    {
+      title: "Integração de expertises",
+      desc: "Diversas áreas atuando de forma conjunta.",
+      icon: <Users />,
+    },
+    {
+      title: "Visão estratégica",
+      desc: "Soluções pensadas para o presente e o futuro.",
+      icon: <Compass />,
+    },
+    {
+      title: "Qualidade e confiabilidade",
+      desc: "Padrões elevados em tudo o que fazemos.",
+      icon: <Award />,
+    },
+    {
+      title: "Personalização",
+      desc: "Soluções adaptadas à realidade de cada cliente.",
+      icon: <Lightbulb />,
+    },
+    {
+      title: "Parceria",
+      desc: "Relacionamento próximo e transparente.",
+      icon: <Briefcase />,
+    },
   ];
 
   return (
@@ -520,12 +824,17 @@ const Differentials: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-12 items-end mb-16">
           <div className="md:w-2/3">
-            <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">Nossos Diferenciais</span>
-            <h2 className="text-3xl md:text-5xl font-bold font-heading text-slate-950">O que nos torna únicos?</h2>
+            <span className="text-slate-700 font-bold text-sm tracking-widest uppercase block mb-2">
+              Nossos Diferenciais
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold font-heading text-slate-950">
+              O que nos torna únicos?
+            </h2>
           </div>
           <div className="md:w-1/3">
             <p className="text-slate-600">
-              Nossa força está na união de conhecimentos que se complementam para gerar resultados superiores.
+              Nossa força está na união de conhecimentos que se complementam
+              para gerar resultados superiores.
             </p>
           </div>
         </div>
@@ -537,9 +846,13 @@ const Differentials: React.FC = () => {
               className="p-8 border border-slate-200 bg-white rounded-xl hover:bg-slate-950 hover:text-white transition-all duration-300 group cursor-default"
             >
               <div className="text-slate-900 mb-6 group-hover:text-white transition-colors">
-                {React.cloneElement(diff.icon as React.ReactElement<any>, { size: 32 })}
+                {React.cloneElement(diff.icon as React.ReactElement<any>, {
+                  size: 32,
+                })}
               </div>
-              <h3 className="text-lg font-bold mb-3 font-heading leading-tight">{diff.title}</h3>
+              <h3 className="text-lg font-bold mb-3 font-heading leading-tight">
+                {diff.title}
+              </h3>
               <p className="text-sm opacity-80">{diff.desc}</p>
             </div>
           ))}
@@ -555,27 +868,36 @@ const Methodology: React.FC = () => {
     { title: "Diagnóstico", desc: "Entendimento profundo das necessidades do cliente" },
     { title: "Planejamento", desc: "Definição da melhor estratégia e solução" },
     { title: "Execução", desc: "Implementação com qualidade e eficiência" },
-    { title: "Acompanhamento", desc: "Monitoramento contínuo e ajustes necessários" }
+    { title: "Acompanhamento", desc: "Monitoramento contínuo e ajustes necessários" },
   ];
 
   return (
     <section id="metodologia" className="py-24 bg-white scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading text-slate-950">Nossa Metodologia</h2>
-          <p className="text-slate-600">Um processo estruturado que garante soluções mais assertivas.</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading text-slate-950">
+            Nossa Metodologia
+          </h2>
+          <p className="text-slate-600">
+            Um processo estruturado que garante soluções mais assertivas.
+          </p>
         </div>
 
         <div className="relative">
           <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 -translate-y-1/2 z-0"></div>
-          
+
           <div className="grid md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, i) => (
-              <div key={i} className="bg-slate-50 p-8 rounded-2xl shadow-sm text-center relative border border-slate-100">
+              <div
+                key={i}
+                className="bg-slate-50 p-8 rounded-2xl shadow-sm text-center relative border border-slate-100"
+              >
                 <div className="w-12 h-12 bg-slate-950 text-white font-bold rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white">
                   {i + 1}
                 </div>
-                <h3 className="text-xl font-bold mb-3 font-heading text-slate-950">{step.title}</h3>
+                <h3 className="text-xl font-bold mb-3 font-heading text-slate-950">
+                  {step.title}
+                </h3>
                 <p className="text-slate-600 text-sm">{step.desc}</p>
               </div>
             ))}
@@ -593,14 +915,18 @@ const Missions: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-12">
           <div className="p-10 border-t-4 border-slate-950 bg-white rounded-b-xl shadow-sm">
-            <h3 className="text-2xl font-bold mb-4 font-heading text-slate-950">Missão</h3>
+            <h3 className="text-2xl font-bold mb-4 font-heading text-slate-950">
+              Missão
+            </h3>
             <p className="text-slate-700 leading-relaxed">
               Oferecer soluções integradas com excelência, gerando valor e resultados reais para nossos clientes.
             </p>
           </div>
 
           <div className="p-10 border-t-4 border-slate-700 bg-white rounded-b-xl shadow-sm">
-            <h3 className="text-2xl font-bold mb-4 font-heading text-slate-950">Visão</h3>
+            <h3 className="text-2xl font-bold mb-4 font-heading text-slate-950">
+              Visão
+            </h3>
             <p className="text-slate-700 leading-relaxed">
               Ser referência em soluções multissetoriais, reconhecida pela qualidade, inovação e parceria com seus clientes.
             </p>
@@ -609,7 +935,13 @@ const Missions: React.FC = () => {
           <div className="p-10 border-t-4 border-slate-950 bg-slate-950 text-white rounded-b-xl shadow-sm">
             <h3 className="text-2xl font-bold mb-4 font-heading">Valores</h3>
             <ul className="space-y-3">
-              {["Qualidade", "Compromisso com resultados", "Ética e transparência", "Inovação", "Foco no cliente"].map((v, i) => (
+              {[
+                "Qualidade",
+                "Compromisso com resultados",
+                "Ética e transparência",
+                "Inovação",
+                "Foco no cliente",
+              ].map((v, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-white/90" />
                   <span className="text-white/90">{v}</span>
@@ -632,40 +964,79 @@ const Footer: React.FC = () => {
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center gap-3 mb-8">
               {/* Logo (corporativa) */}
-              <img
-                src={logo}
-                alt="Grupo Goto"
-                className="h-9 w-auto"
-                draggable={false}
-              />
+              <img src={logo} alt="Grupo Goto" className="h-9 w-auto" draggable={false} />
               <span className="text-2xl font-bold font-heading tracking-tight">GRUPO GOTO</span>
             </div>
 
-            <h3 className="text-2xl font-bold mb-6 font-heading">Vamos construir a solução ideal para o seu negócio?</h3>
+            <h3 className="text-2xl font-bold mb-6 font-heading">
+              Vamos construir a solução ideal para o seu negócio?
+            </h3>
             <p className="text-white/60 mb-8 max-w-md">
               Entre em contato com o Grupo Goto e descubra como nossas soluções integradas podem impulsionar seus resultados.
             </p>
 
-            <a 
-  href="https://wa.me/556181960225?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20oferecidos."
-
-  target="_blank"
-  rel="noopener noreferrer"
-  className="bg-white text-slate-950 hover:bg-white/90 transition-all px-10 py-4 rounded-full font-bold inline-flex items-center gap-3 group"
->
-  Fale conosco agora
-  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-</a>
-
+            <a
+              href="https://wa.me/556181960225?text=Olá,%20gostaria%20de%20mais%20informações%20sobre%20os%20serviços%20oferecidos."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-slate-950 hover:bg-white/90 transition-all px-10 py-4 rounded-full font-bold inline-flex items-center gap-3 group"
+            >
+              Fale conosco agora
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
 
           <div>
             <h4 className="text-lg font-bold mb-8 font-heading">Atalhos</h4>
             <ul className="space-y-4 text-white/65">
-              <li><a href="#sobre" onClick={(e)=>{e.preventDefault();scrollToId('sobre')}} className="hover:text-white transition-colors">Quem Somos</a></li>
-              <li><a href="#saude-mental" onClick={(e)=>{e.preventDefault();scrollToId('saude-mental')}} className="hover:text-white transition-colors">Saúde Mental (App)</a></li>
-              <li><a href="#solucoes" onClick={(e)=>{e.preventDefault();scrollToId('solucoes')}} className="hover:text-white transition-colors">Nossas Soluções</a></li>
-              <li><a href="#diferenciais" onClick={(e)=>{e.preventDefault();scrollToId('diferenciais')}} className="hover:text-white transition-colors">Diferenciais</a></li>
+              <li>
+                <a
+                  href="#sobre"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToId("sobre");
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Quem Somos
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#saude-mental"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToId("saude-mental");
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Saúde Mental (App)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#solucoes"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToId("solucoes");
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Nossas Soluções
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#diferenciais"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToId("diferenciais");
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Diferenciais
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -689,8 +1060,12 @@ const Footer: React.FC = () => {
             © {new Date().getFullYear()} Grupo Goto. Todos os direitos reservados.
           </p>
           <div className="flex gap-6 text-white/50 text-sm">
-            <a href="#" className="hover:text-white">Política de Privacidade</a>
-            <a href="#" className="hover:text-white">Termos de Uso</a>
+            <a href="#" className="hover:text-white">
+              Política de Privacidade
+            </a>
+            <a href="#" className="hover:text-white">
+              Termos de Uso
+            </a>
           </div>
         </div>
       </div>
@@ -711,13 +1086,16 @@ const App: React.FC = () => {
         <MentalHealthSection />
         <Solutions />
         <Differentials />
-        
+
         {/* Multisector Banner (corporativo: paleta logo) */}
         <section className="py-20 bg-slate-950 text-white overflow-hidden relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading">Atuação Multissetorial</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-heading">
+              Atuação Multissetorial
+            </h2>
             <p className="text-xl text-white/75 max-w-3xl mx-auto">
-              Atendemos empresas de diferentes segmentos, respeitando as particularidades de cada mercado e os objetivos estratégicos de cada cliente.
+              Atendemos empresas de diferentes segmentos, respeitando as particularidades de cada mercado e os objetivos
+              estratégicos de cada cliente.
             </p>
           </div>
           <div className="absolute inset-0 bg-white/5 opacity-20 -skew-y-3 translate-y-20"></div>
@@ -733,11 +1111,10 @@ const App: React.FC = () => {
               Por que escolher o <span className="text-slate-950">Grupo Goto?</span>
             </h2>
             <p className="text-xl text-slate-600 mb-12 leading-relaxed">
-              Porque mais do que oferecer produtos e serviços, entregamos <strong>soluções completas</strong>, construídas a partir da integração de conhecimentos, experiência e visão estratégica. Trabalhamos lado a lado com nossos clientes para superar desafios e alcançar objetivos.
+              Porque mais do que oferecer produtos e serviços, entregamos{" "}
+              <strong>soluções completas</strong>, construídas a partir da integração de conhecimentos, experiência e
+              visão estratégica.
             </p>
-            <div className="inline-flex flex-col sm:flex-row gap-6">
-              
-            </div>
           </div>
         </section>
       </main>
