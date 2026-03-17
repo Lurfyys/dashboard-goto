@@ -342,7 +342,7 @@ const MentalHealthSection: React.FC = () => {
       className="py-24 bg-white scroll-mt-24 overflow-hidden"
     >
       {/* ✅ AUMENTEI A LARGURA MÁXIMA AQUI (de max-w-7xl -> max-w-screen-2xl)
-          Isso aumenta “um pouquinho” as miniaturas no grid sem mexer em colunas. */}
+          Isso aumenta "um pouquinho" as miniaturas no grid sem mexer em colunas. */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -383,7 +383,7 @@ const MentalHealthSection: React.FC = () => {
               <p className="text-slate-600 mb-8 leading-relaxed">
                 O colaborador registra bem-estar em poucos segundos. O sistema
                 organiza sinais e tendências para prevenção — sem transformar
-                isso em “mais uma obrigação”, e com abordagem acolhedora.
+                isso em "mais uma obrigação", e com abordagem acolhedora.
               </p>
 
               <ul className="space-y-4 mb-10">
@@ -637,7 +637,7 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-slate-900/5 -z-10 rounded"></div>
             <img
-              src= {screen5}
+              src={screen5}
               alt="Team Meeting"
               className="rounded-lg shadow-2xl relative z-10"
             />
@@ -963,7 +963,6 @@ const Footer: React.FC = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center gap-3 mb-8">
-              {/* Logo (corporativa) */}
               <img src={logo} alt="Grupo Goto" className="h-9 w-auto" draggable={false} />
               <span className="text-2xl font-bold font-heading tracking-tight">GRUPO GOTO</span>
             </div>
@@ -1045,7 +1044,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-6">
               <li className="flex gap-4">
                 <MapPin className="text-white/85 shrink-0" />
-                <span className="text-white/65">Brasilia-DF</span>
+                <span className="text-white/65">Brasília-DF</span>
               </li>
               <li className="flex gap-4">
                 <Phone className="text-white/85 shrink-0" />
@@ -1059,11 +1058,23 @@ const Footer: React.FC = () => {
           <p className="text-white/50 text-sm">
             © {new Date().getFullYear()} Grupo Goto. Todos os direitos reservados.
           </p>
-          <div className="flex gap-6 text-white/50 text-sm">
-            <a href="#" className="hover:text-white">
+
+          <div className="flex gap-6 text-white/50 text-sm flex-wrap justify-center">
+            <a
+              href="/politica-privacidade.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
               Política de Privacidade
             </a>
-            <a href="#" className="hover:text-white">
+
+            <a
+              href="/termos-de-uso.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
               Termos de Uso
             </a>
           </div>
