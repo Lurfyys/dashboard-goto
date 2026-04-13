@@ -201,6 +201,7 @@
     .content section:nth-child(8)  { animation-delay: 0.34s; }
     .content section:nth-child(9)  { animation-delay: 0.37s; }
     .content section:nth-child(10) { animation-delay: 0.40s; }
+    .content section:nth-child(11) { animation-delay: 0.43s; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
@@ -258,8 +259,7 @@
       content: '';
       position: absolute;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 18px;
       width: 6px;
       height: 6px;
       border-radius: 50%;
@@ -300,6 +300,12 @@
     }
 
     .doc-footer a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
 
     @media (max-width: 540px) {
       .topbar { padding: 0 16px; }
@@ -456,8 +462,42 @@
 
         <hr class="section-rule">
 
-        <section id="corporativo">
+        <section id="exclusao">
           <span class="section-number">08</span>
+          <h2>Exclusão de conta e de dados</h2>
+          <p>
+            O usuário pode solicitar a <strong>exclusão da conta</strong> e dos
+            <strong>dados pessoais associados</strong> ao aplicativo GNR1 a qualquer momento.
+          </p>
+          <p>
+            Para solicitar a exclusão, o usuário deverá enviar um e-mail para
+            <a href="mailto:suporte@gnr1.com">suporte@gnr1.com</a>
+            com o assunto <strong>“Excluir conta”</strong>.
+          </p>
+          <p>No e-mail, o usuário deve informar, sempre que possível:</p>
+          <ul>
+            <li>Nome completo</li>
+            <li>E-mail cadastrado no aplicativo</li>
+            <li>Número de telefone vinculado à conta, se aplicável</li>
+            <li>Solicitação expressa de exclusão da conta e dos dados</li>
+          </ul>
+          <p>
+            Após o recebimento da solicitação, o pedido será analisado e processado
+            em prazo razoável, observadas eventuais obrigações legais ou regulatórias
+            que exijam a retenção de determinados registros.
+          </p>
+          <div class="callout">
+            <strong>Importante:</strong> alguns dados poderão ser mantidos pelo período
+            necessário para cumprimento de obrigações legais, regulatórias, auditorias,
+            prevenção a fraudes, exercício regular de direitos ou outros fundamentos
+            permitidos pela legislação aplicável.
+          </div>
+        </section>
+
+        <hr class="section-rule">
+
+        <section id="corporativo">
+          <span class="section-number">09</span>
           <h2>Relatórios e privacidade no contexto corporativo</h2>
           <p>O GNR1 foi concebido para apoiar ações preventivas em saúde ocupacional e riscos psicossociais. Sempre que possível, as informações apresentadas para fins gerenciais serão tratadas de forma <strong>agregada</strong> e/ou <strong>anonimizada</strong>, reduzindo a exposição individual.</p>
         </section>
@@ -465,7 +505,7 @@
         <hr class="section-rule">
 
         <section id="alteracoes">
-          <span class="section-number">09</span>
+          <span class="section-number">10</span>
           <h2>Alterações desta Política</h2>
           <p>Esta Política poderá ser atualizada periodicamente para refletir melhorias da plataforma, mudanças legais ou operacionais. A versão mais recente será sempre disponibilizada nesta página.</p>
         </section>
@@ -473,11 +513,11 @@
         <hr class="section-rule">
 
         <section id="contato">
-          <span class="section-number">10</span>
+          <span class="section-number">11</span>
           <h2>Contato</h2>
           <p>Para dúvidas, solicitações ou exercício de direitos relacionados à privacidade e proteção de dados, entre em contato:</p>
           <ul>
-            <li>E-mail: <a href="mailto:suporte@gnr1.com" style="color:var(--ink);text-underline-offset:3px;">suporte@gnr1.com</a></li>
+            <li>E-mail: <a href="mailto:suporte@gnr1.com">suporte@gnr1.com</a></li>
             <li>Empresa responsável: Grupo Goto</li>
             <li>Controlador dos dados: Grupo Goto</li>
             <li>Localidade: Brasília - DF</li>
@@ -502,9 +542,10 @@
           <li><a href="#seguranca">05 · Segurança</a></li>
           <li><a href="#retencao">06 · Retenção</a></li>
           <li><a href="#direitos">07 · Direitos do titular</a></li>
-          <li><a href="#corporativo">08 · Contexto corporativo</a></li>
-          <li><a href="#alteracoes">09 · Alterações</a></li>
-          <li><a href="#contato">10 · Contato</a></li>
+          <li><a href="#exclusao">08 · Exclusão de conta</a></li>
+          <li><a href="#corporativo">09 · Contexto corporativo</a></li>
+          <li><a href="#alteracoes">10 · Alterações</a></li>
+          <li><a href="#contato">11 · Contato</a></li>
         </ul>
       </aside>
 
